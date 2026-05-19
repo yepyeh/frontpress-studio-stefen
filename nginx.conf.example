@@ -1,0 +1,32 @@
+# FrontPress Studio — optional nginx rules.
+#
+# These are NOT required to run the framework. The public front controller
+# (`index.php`) already self-dispatches any /admin/* URL that falls
+# through to it — so a stock WordPress-style nginx config (Local by
+# Flywheel et al.) works out of the box.
+#
+# Use these rules only if you want the small perf win of skipping the
+# index.php → admin/index.php hop, or to harden raw-Markdown / uploads
+# access at the webserver layer instead of in PHP.
+#
+# Drop the block below inside your `server { ... }` after `root` is set,
+# or save this file as e.g. /etc/nginx/snippets/frontpress-studio.conf
+# and `include /etc/nginx/snippets/frontpress-studio.conf;` from your
+# server block. Assumes a PHP-FPM `location ~ \.php$ { ... }` is already
+# configured.
+
+# Block raw markdown source (the framework parses these server-side).
+location ~ \.md$ { return 404; }
+
+# Belt-and-braces: block PHP execution under any uploads path.
+location ~* /uploads/.*\.(php[0-9]?|phtml|phar)$ { return 403; }
+
+# Admin SPA: virtual URLs under /admin/ route to admin/index.php.
+location /admin {
+    try_files $uri $uri/ /admin/index.php?$args;
+}
+
+# Front controller for everything else.
+location / {
+    try_files $uri $uri/ /index.php?$args;
+}

@@ -1,0 +1,57 @@
+# ──────────────────────────────────────────────────────────────────
+# Dependencies — regenerated via `composer install` / `npm ci`
+# ──────────────────────────────────────────────────────────────────
+cms/vendor/
+src/node_modules/
+
+# ──────────────────────────────────────────────────────────────────
+# Build artifacts — regenerated via `npm run build`
+# ──────────────────────────────────────────────────────────────────
+public/cms/dist/
+src/dist/
+**/.vite/
+.vite-hot
+
+# ──────────────────────────────────────────────────────────────────
+# /site is fully user-owned, never tracked. Defaults (config, content,
+# uploads stub, default theme) live under cms/starters/ and are copied
+# in on first request by MD\Bootstrap::ensureSiteDefaults(). Editing
+# content in the admin no longer creates diffs in the framework repo.
+# ──────────────────────────────────────────────────────────────────
+site/
+
+
+# Local Sites recreates a MySQL dump at /sql/local.sql for any site it
+# manages, regardless of whether the framework uses SQL. mdframework is
+# flat-file only — never ship this in a release zip or commit it to git.
+sql/
+
+# ──────────────────────────────────────────────────────────────────
+# Tool caches & local-only output
+# ──────────────────────────────────────────────────────────────────
+.phpunit.result.cache
+.php-cs-fixer.cache
+phpstan-baseline.neon
+coverage/
+*.log
+
+# ──────────────────────────────────────────────────────────────────
+# Editor / IDE
+# ──────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ──────────────────────────────────────────────────────────────────
+# OS metadata
+# ──────────────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# ──────────────────────────────────────────────────────────────────
+# Release artifacts
+# ──────────────────────────────────────────────────────────────────
+release/
+*.zip

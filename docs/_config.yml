@@ -1,0 +1,19 @@
+title: MD Framework
+description: Ultralight flat-file CMS built in PHP. No database. Markdown files on disk, browser-based admin.
+theme: jekyll-theme-minimal
+url: https://krstivoja.github.io
+baseurl: /mdframework
+
+show_downloads: false
+github:
+  is_project_page: true
+  repository_url: https://github.com/krstivoja/mdframework
+  repository_name: krstivoja/mdframework
+  owner_name: krstivoja
+  owner_url: https://github.com/krstivoja
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - README.md

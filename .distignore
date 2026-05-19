@@ -1,0 +1,71 @@
+# .distignore — patterns excluded when packaging a release zip
+#
+# Format: one path/glob per line, relative to the package root.
+# Compatible with rsync --exclude-from and `wp dist-archive`-style tools.
+# Use this list from release.sh (or any packager) to strip dev-only files
+# while keeping vendor/ and the built admin SPA.
+
+# ──────────────────────────────────────────────────────────────────
+# Source code that's compiled into admin-assets/
+#
+# Patterns that match basenames anywhere in the tree (no leading `/`)
+# are dangerous: `src/` would also exclude `cms/vendor/twig/twig/src/`.
+# Anchor with a leading slash so only the top-level dir is matched.
+# ──────────────────────────────────────────────────────────────────
+/src/
+
+# ──────────────────────────────────────────────────────────────────
+# Tests + linting + static analysis
+# ──────────────────────────────────────────────────────────────────
+cms/tests/
+cms/phpunit.xml
+cms/.phpunit.result.cache
+cms/.php-cs-fixer.dist.php
+cms/.php-cs-fixer.cache
+.phpunit.result.cache
+phpstan.neon
+phpstan-baseline.neon
+
+# ──────────────────────────────────────────────────────────────────
+# Documentation source (Jekyll site for GitHub Pages)
+# Anchored — some vendor packages have their own `docs/` directory.
+# ──────────────────────────────────────────────────────────────────
+/docs/
+
+# /site/ is user data, seeded from cms/starters/ on first request.
+# Excluded so a dev install's content/uploads doesn't ship in the zip.
+/site/
+
+# Local Sites recreates this dir with a MySQL dump regardless of whether
+# the framework uses SQL. mdframework is flat-file only — never ship it.
+/sql/
+
+# Local build / dev helpers
+/scripts/
+
+# ──────────────────────────────────────────────────────────────────
+# VCS + repo hygiene
+# ──────────────────────────────────────────────────────────────────
+.git/
+.gitignore
+.gitattributes
+.distignore
+.github/
+
+# ──────────────────────────────────────────────────────────────────
+# Editor / OS metadata
+# ──────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+
+# ──────────────────────────────────────────────────────────────────
+# Build / release artifacts
+# Anchored — `release/` could exist inside a vendor package's tests.
+# ──────────────────────────────────────────────────────────────────
+/release/
+*.zip
+*.log
